@@ -1,11 +1,11 @@
 const { v4: uuidv4 } = require('uuid')
 let items = require('../Items')
 
-const getItems = (req, reply) => {
+const getItems = async (req, reply) => {
   reply.send(items)
 }
 
-const getItem = (req, reply) => {
+const getItem = async (req, reply) => {
   const { id } = req.params
 
   const item = items.find((item) => item.id === id)
@@ -13,7 +13,7 @@ const getItem = (req, reply) => {
   reply.send(item)
 }
 
-const addItem = (req, reply) => {
+const addItem = async (req, reply) => {
   const { name } = req.body
   const item = {
     id: uuidv4(),
@@ -25,7 +25,7 @@ const addItem = (req, reply) => {
   reply.code(201).send(item)
 }
 
-const deleteItem = (req, reply) => {
+const deleteItem = async (req, reply) => {
   const { id } = req.params
 
   items = items.filter((item) => item.id !== id)
@@ -33,7 +33,7 @@ const deleteItem = (req, reply) => {
   reply.send({ message: `Item ${id} has been removed` })
 }
 
-const updateItem = (req, reply) => {
+const updateItem = async (req, reply) => {
   const { id } = req.params
   const { name } = req.body
 
